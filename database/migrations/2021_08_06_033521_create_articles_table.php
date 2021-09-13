@@ -15,15 +15,14 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
-            $table->string('name_article',150)->index();
-            $table->string('image',150);
-            $table->text('announcement');  
+            $table->foreignId('author_id')->constrained('authors_articles');
+            $table->foreignId('category_id')->constrained('categories_articles');
+            $table->string('title',150)->unique();
+            $table->string('img');
+            $table->text('announcement');
             $table->text('text');
-            $table->foreignId('author')->constrained('author_articles');
-            $table->foreignId('categories')->constrained('category_articles');
-            $table->string('slug')->unique()->nullable();
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->nullable();  
+            $table->string('slug')->index();
+            $table->timestamps();
         });
     }
 

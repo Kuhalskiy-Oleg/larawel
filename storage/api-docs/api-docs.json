@@ -1,0 +1,287 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Articles API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/V2/articles?page={'number page'}&sort={category slug}&nameAuthor={name author}&titleCategory={title category}&titleArticle={title article}": {
+            "get": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Get list articles",
+                "description": "",
+                "parameters": [
+                    {
+                        "name": "number page",
+                        "in": "path",
+                        "description": "Number page",
+                        "required": false
+                    },
+                    {
+                        "name": "category slug",
+                        "in": "path",
+                        "description": "Sorting articles by category slug: all, sport, futbol, politika ...",
+                        "required": false
+                    },
+                    {
+                        "name": "name author",
+                        "in": "path",
+                        "description": "Search for an article by name author",
+                        "required": false
+                    },
+                    {
+                        "name": "title category",
+                        "in": "path",
+                        "description": "Search for an article by title category: Спорт, Футбол, Политика ...",
+                        "required": false
+                    },
+                    {
+                        "name": "title article",
+                        "in": "path",
+                        "description": "Search for an article by title article",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/api/V2/articles/{id}": {
+            "get": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Get author information by id",
+                "description": "Get article information by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Article id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/api/V2/authors?page={number page}&nameAuthor={name author}": {
+            "get": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Get list authors",
+                "parameters": [
+                    {
+                        "name": "number page",
+                        "in": "path",
+                        "description": "Number page",
+                        "required": false
+                    },
+                    {
+                        "name": "name author",
+                        "in": "path",
+                        "description": "Search for an author by name author",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/api/V2/authors/{id}": {
+            "get": {
+                "tags": [
+                    "Authors"
+                ],
+                "summary": "Get author information by id",
+                "description": "Get author information by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Author id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/api/V2/categories?page={number page}": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Get list authors",
+                "parameters": [
+                    {
+                        "name": "number page",
+                        "in": "path",
+                        "description": "Number page",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/api/V2/categories/{id}": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Get category information by id",
+                "description": "Get category information by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Category id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Article": {
+                "title": "articles",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "author_id": {
+                        "type": "integer"
+                    },
+                    "category_id": {
+                        "type": "integer"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "img": {
+                        "type": "string"
+                    },
+                    "announcement": {
+                        "type": "string"
+                    },
+                    "text": {
+                        "type": "string"
+                    },
+                    "slug": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "AuthorArticle": {
+                "title": "authors_articles",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "avatar": {
+                        "type": "string"
+                    },
+                    "date_of_birth": {
+                        "type": "string"
+                    },
+                    "biography": {
+                        "type": "string"
+                    },
+                    "slug": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "CategoryArticle": {
+                "title": "categories_articles",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "img": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "slug": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}

@@ -17,3 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::name('V1.')->group(function () {
+	Route::apiResources([
+	    '/articles' => ArticleController::class,      
+	    '/authors' => AuthorController::class,
+	    '/categories' => CategoryController::class,
+	]);
+});
+

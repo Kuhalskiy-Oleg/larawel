@@ -7,13 +7,59 @@ use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Kalnoy\Nestedset\NodeTrait;
 
+/**
+ * @OA\Schema(
+ *     type="object",
+ *     title="categories_articles",   
+ * )
+ */
 class CategoryArticle extends Model
 {
+    /**
+     *  @OA\Property(
+     *      property="id",
+     *      type="integer"
+     *  ),
+     * @OA\Property(
+     *      property="title",
+     *      type="string"
+     *  ),
+     * @OA\Property(
+     *      property="img",
+     *      type="string"
+     *  ),
+     *  @OA\Property(
+     *      property="description",
+     *      type="string"
+     *  ),
+     *  @OA\Property(
+     *      property="slug",
+     *      type="string"
+     *  ),
+     * @OA\Property(
+     *      property="created_at",
+     *      type="string"
+     *  ),
+     * @OA\Property(
+     *      property="updated_at",
+     *      type="string"
+     *  )
+     */
     use HasFactory;
     use Sluggable , NodeTrait{
     	NodeTrait::replicate as replicateNode;
     	Sluggable::replicate as replicateSlug;
     }
+
+    protected $table = 'categories_articles';
+    protected $primaryKey = 'id';
+    protected $fillable = [
+        'title',
+        'img',
+        'description',
+        'slug'
+    ];
+
 
     public function replicate(array $except = null)
 	{
@@ -23,13 +69,11 @@ class CategoryArticle extends Model
 	    return $instance;
 	}
 
-    protected $table = 'category_articles';
-    protected $primaryKey = 'id';
-    protected $fillable = [
-    	'name',
-    	'img',
-    	'description',
-    ];
+    
+    public function articles()
+    {
+        return $this->hasMany(Article::class , 'category_id' , 'id');
+    }
 
 
     /**
@@ -41,25 +85,8 @@ class CategoryArticle extends Model
     {
         return [
             'slug' => [
-                'source' => 'name'
+                'source' => 'title'
             ]
         ];
-    }
-
-
-
-    //метод для получения предков у вложенного списка nested set
-    protected $appends = ['parents'];
-	public function getParentsAttribute()
-	{
-	    $collection = collect([]);
-	    $parent = $this->parent;
-	    while($parent) {
-	        $collection->push($parent);
-	        $parent = $parent->parent;
-	    }
-
-	    return $collection;
-	}
-  
+    } 
 }
